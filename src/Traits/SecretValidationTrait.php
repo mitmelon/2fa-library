@@ -19,7 +19,7 @@ trait SecretValidationTrait
     /**
      * @var SecretKeyValidator
      */
-    protected $secretKeyValidator;
+    protected SecretKeyValidator $secretKeyValidator;
 
     /**
      * @param string $value

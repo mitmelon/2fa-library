@@ -18,26 +18,6 @@ class OneTimePasswordValidator implements ValidatorInterface
 {
     use OathTrait;
 
-    /**
-     * @var string
-     */
-    protected $seed;
-    /**
-     * @var int
-     */
-    protected $cycles;
-    /**
-     * @var int
-     */
-    protected $startTime;
-    /**
-     * @var int
-     */
-    protected $time;
-    /**
-     * @var int|null
-     */
-    protected $previousTime;
 
     /**
      * OneTimePasswordValidator constructor.
@@ -50,19 +30,14 @@ class OneTimePasswordValidator implements ValidatorInterface
      * @param int|null $previousTime
      */
     public function __construct(
-        string $seed,
-        int $cycles,
+        protected string $seed,
+        protected int $cycles,
         int $tokenLength,
-        int $startTime,
-        int $time,
-        int $previousTime = null
+        protected int $startTime,
+        protected int $time,
+        protected ?int $previousTime = null
     ) {
-        $this->seed = $seed;
-        $this->cycles = $cycles;
         $this->tokenLength = $tokenLength;
-        $this->startTime = $startTime;
-        $this->time = $time;
-        $this->previousTime = $previousTime;
     }
 
     /**
@@ -73,7 +48,7 @@ class OneTimePasswordValidator implements ValidatorInterface
      *
      * @return bool|int
      */
-    public function validate($value)
+    public function validate($value): bool|int
     {
         for (; $this->startTime <= $this->time + $this->cycles; $this->startTime++) {
             if (hash_equals($this->oathHotp($this->seed, $this->startTime), $value)) {

@@ -23,7 +23,7 @@ class SecretKeyValidator implements ValidatorInterface
     /**
      * Enforce Google Authenticator compatibility.
      */
-    protected $googleAuthenticatorCompatibility;
+    protected bool $googleAuthenticatorCompatibility;
 
     /**
      * Encoder constructor.

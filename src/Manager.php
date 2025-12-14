@@ -28,16 +28,16 @@ class Manager
      * @var int the period parameter that defines the time (in seconds) the OTP token will be valid. Default is 30 for
      *          Google Authenticator.
      */
-    protected $counter = 30;
+    protected int $counter = 30;
     /**
      * @var int the times in 30 second cycles to avoid slight out of sync code verification. Setting this to 1 cycle
      *          will be valid for 60 seconds.
      */
-    protected $cycles = 1;
+    protected int $cycles = 1;
     /**
      * @var TotpEncoderInterface
      */
-    protected $encoder;
+    protected TotpEncoderInterface $encoder;
 
     /**
      * Auth constructor.
@@ -45,10 +45,12 @@ class Manager
      * @param SecretKeyValidator|null   $secretKeyValidator
      * @param TotpEncoderInterface|null $encoder
      */
-    public function __construct(SecretKeyValidator $secretKeyValidator = null, TotpEncoderInterface $encoder = null)
-    {
-        $this->secretKeyValidator = $secretKeyValidator ?: new SecretKeyValidator();
-        $this->encoder = $encoder ?: new Encoder();
+    public function __construct(
+        ?SecretKeyValidator $secretKeyValidator = null,
+        ?TotpEncoderInterface $encoder = null
+    ) {
+        $this->secretKeyValidator = $secretKeyValidator ?? new SecretKeyValidator();
+        $this->encoder = $encoder ?? new Encoder();
     }
 
     /**
@@ -100,7 +102,7 @@ class Manager
      *
      * @return Manager
      */
-    public function setTokenLength($tokenLength): Manager
+    public function setTokenLength(int $tokenLength): Manager
     {
         $this->tokenLength = $tokenLength;
 
@@ -116,7 +118,7 @@ class Manager
      * @throws InvalidSecretKeyException
      * @return mixed|string
      */
-    public function generateSecretKey(int $length = 16, string $prefix = '')
+    public function generateSecretKey(int $length = 16, string $prefix = ''): string
     {
         return $this->encoder->generateBase32RandomKey($length, $prefix);
     }
@@ -200,7 +202,7 @@ class Manager
      * @throws Exception\InvalidCharactersException
      * @return bool|int
      */
-    public function verify(string $key, string $secret, int $previousTime = null, int $time = null)
+    public function verify(string $key, string $secret, ?int $previousTime = null, ?int $time = null): bool|int
     {
         $time = $time ? (int)$time : $this->getTimestamp();
         $cycles = $this->getCycles();
@@ -233,8 +235,8 @@ class Manager
         string $seed,
         int $startTime,
         int $time,
-        $previousTime = null
-    ): bool {
+        ?int $previousTime = null
+    ): bool|int {
         return (new OneTimePasswordValidator(
             $seed,
             $this->getCycles(),
