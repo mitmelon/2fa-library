@@ -20,6 +20,6 @@ class GoogleAuthenticationCompatibilityValidator implements ValidatorInterface
      */
     public function validate($value): bool
     {
-        return ((strlen($value) & (strlen($value) - 1)) === 0);
+        return ((strlen((string)$value) & (strlen((string)$value) - 1)) === 0);
     }
 }

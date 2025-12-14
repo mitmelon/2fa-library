@@ -29,10 +29,9 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.4",
         "2amigos/qrcode-library": "^2.0|^3.0",
-        "paragonie/constant_time_encoding": "^1.4|^2.0|9.99.99",
-        "paragonie/random_compat": "^2.0"
+        "paragonie/constant_time_encoding": "^1.4|^2.0|9.99.99"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.6",

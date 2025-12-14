@@ -16,24 +16,15 @@ use Da\TwoFA\Contracts\StringGeneratorServiceInterface;
 final class GoogleQrCodeUrlGeneratorService implements StringGeneratorServiceInterface
 {
     /**
-     * @var string a totp secret key uri generated string.
-     */
-    private $totpSecretKeyUri;
-    /**
-     * @var int the size of the qr code. Recommended size is 200 for readability.
-     */
-    private $size;
-
-    /**
      * GoogleQrCodeUrlService constructor.
      *
-     * @param string $totpSecreteKeyUri
-     * @param int    $size
+     * @param string $totpSecretKeyUri a totp secret key uri generated string.
+     * @param int    $size             the size of the qr code. Recommended size is 200 for readability.
      */
-    public function __construct(string $totpSecreteKeyUri, int $size = 200)
-    {
-        $this->totpSecretKeyUri = $totpSecreteKeyUri;
-        $this->size = $size;
+    public function __construct(
+        private string $totpSecretKeyUri,
+        private int $size = 200
+    ) {
     }
 
     /**

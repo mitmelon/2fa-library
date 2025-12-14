@@ -27,9 +27,9 @@ class Encoder implements TotpEncoderInterface
      *
      * @param SecretKeyValidator|null $secretKeyValidator
      */
-    public function __construct(SecretKeyValidator $secretKeyValidator = null)
+    public function __construct(?SecretKeyValidator $secretKeyValidator = null)
     {
-        $this->secretKeyValidator = $secretKeyValidator ?: new SecretKeyValidator();
+        $this->secretKeyValidator = $secretKeyValidator ?? new SecretKeyValidator();
     }
 
     /**

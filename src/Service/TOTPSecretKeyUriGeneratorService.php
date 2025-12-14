@@ -24,32 +24,17 @@ use Da\TwoFA\Contracts\StringGeneratorServiceInterface;
 final class TOTPSecretKeyUriGeneratorService implements StringGeneratorServiceInterface
 {
     /**
-     * @var string part of the compound label. Company (or site) issuing the TOTP. Will be used as the issuer too.
-     * @see https://github.com/google/google-authenticator/wiki/Key-Uri-Format#issuer
-     */
-    private $company;
-    /**
-     * @var string part of the compound label. Holder could be a user's secret owner.
-     */
-    private $holder;
-    /**
-     * @var string an arbitrary key value encoded in Base32 according to RFC 3548
-     * @see http://tools.ietf.org/html/rfc3548
-     */
-    private $secret;
-
-    /**
      * GoogleQrCodeUrlService constructor.
      *
-     * @param $company
-     * @param $holder
-     * @param $secret
+     * @param string $company part of the compound label. Company (or site) issuing the TOTP. Will be used as the issuer too.
+     * @param string $holder  part of the compound label. Holder could be a user's secret owner.
+     * @param string $secret  an arbitrary key value encoded in Base32 according to RFC 3548
      */
-    public function __construct($company, $holder, $secret)
-    {
-        $this->company = $company;
-        $this->holder = $holder;
-        $this->secret = $secret;
+    public function __construct(
+        private string $company,
+        private string $holder,
+        private string $secret
+    ) {
     }
 
     /**
